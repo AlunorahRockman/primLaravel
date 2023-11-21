@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserController;
+use App\Models\user;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $users = user::all();
+    return view("index", compact("users"));
 });
+
+Route::resource('users', UserController::class);
+Route::delete('/users/{id}', 'UserController@destroy')->name('users.destroy');
+
